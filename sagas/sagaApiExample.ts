@@ -7,28 +7,46 @@ import {
   IActApiRequest,
 } from '../interfaces/iApiExample/iApiExampleAct.interfaces';
 import { IApiResult } from '../interfaces/iApiExample/iApiExample.interfaces';
+import { fetchData } from "../utils/api/http-calls";
+import data from "../utils/db.json";
 
 function* apiRequest(action: IActApiRequest) {
-  try {
-    const headers = { headers: { Authorization: 'bearer ' } };
-    const id = action.id;
-    // const formData = new FormData();
-    // formData.append('id', id);
-    const params = { id: id };
+  // try {
+  //   const headers = { headers: { Authorization: 'bearer ' } };
+  //   const id = action.id;
+  //   // const formData = new FormData();
+  //   // formData.append('id', id);
+  //   const params = { id: id };
 
-    const { status, data }: AxiosResponse<IApiResult> = yield call(
-      axios.post,
-      '/api/animal',
-      params,
-      headers,
-    );
+  //   const { status, data }: AxiosResponse<IApiResult> = yield call(
+  //     axios.post,
+  //     '/api/animal',
+  //     params,
+  //     headers,
+  //   );
 
-    if (status === 200) {
-      yield put(actApiSuccess(data));
-    }
-  } catch (err) {
-    yield put(actApiFail(err));
-  }
+  //   if (status === 200) {
+  //     yield put(actApiSuccess(data));
+  //   }
+  // } catch (err) {
+  //   yield put(actApiFail(err));
+  // }
+
+  //data through API call host json data on localhost using json server on port [3001]
+    // try{
+    //   const { data } = yield call(fetchData);
+    //   console.log("data frm api", data)
+    //   yield put(actApiSuccess(data)); 
+
+    // } catch(error){
+    //   console.error("error", error);
+    //   yield put(actApiFail(error));
+
+    // }
+
+  //directly importing json data 
+  yield put(actApiSuccess(data)); 
+
 }
 
 function* watchApiRequest() {
